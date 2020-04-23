@@ -28,7 +28,6 @@ export default async (req: Request, res: Response) => {
       .toArray();
     return res.status(200).send(
       notifications.map((el: UserNotification & { _id: string }) => {
-        console.log(el);
         return { ...el.notification, id: el._id };
       })
     );
