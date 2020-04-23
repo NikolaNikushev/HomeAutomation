@@ -1,6 +1,10 @@
 import { BadInputError } from "./BadInputError";
 
-export type NotificationType = "danger" | "warning" | "success";
+export enum NotificationType {
+  "danger" = "danger",
+  "warning" = "warning",
+  "success" = "success",
+}
 
 export interface NotificationContentInput {
   deviceName: string;
@@ -58,6 +62,9 @@ export class NotificationContent implements NotificationContentInput {
     }
     if (!this.title) {
       throw new BadInputError("Missing title for data");
+    }
+    if (this.type && !(this.type in NotificationType)) {
+      throw new BadInputError("Invalid type provided.");
     }
   }
 }
