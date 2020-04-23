@@ -27,6 +27,7 @@ export default async (req: Request, res: Response) => {
     const usersToNotify = await usersRepository
       .find({ pushToken: { $exists: true, $ne: null } })
       .toArray();
+    const notificationIds = [];
     for (const user of usersToNotify) {
       const token = user.pushToken;
       await axios.post(
@@ -34,10 +35,14 @@ export default async (req: Request, res: Response) => {
         notification.prepare(token)
       );
 
-      await notificationsRepository.insertOne({ user, notification });
+      const insert = await notificationsRepository.insertOne({
+        user,
+        notification,
+      });
+      notificationIds.push(insert.insertedId);
     }
 
-    return wrapStatus(res, 200, `Sent ${usersToNotify.length}`);
+    return res.status(200).send(notificationIds);
   } catch (err) {
     if (err instanceof BadInputError) {
       return wrapStatus(res, 400, err.message);
