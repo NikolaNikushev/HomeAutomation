@@ -7,19 +7,19 @@ import { getMongoClient } from "../../database/getMongoClient";
 export default async (req: Request, res: Response) => {
   try {
     const mandatoryFields = ["id"];
-    const body = req.body;
-    if (!body) {
+    const params = req.params;
+    if (!params) {
       throw new BadInputError("No body is sent");
     }
     for (const field of mandatoryFields) {
-      if (!body[field]) {
+      if (!params[field]) {
         throw new BadInputError(`${field} is missing`);
       }
     }
     const client = await getMongoClient();
     const notificationsRepository = new UserNotificationsRepository(client)
       .collection;
-    await notificationsRepository.findOneAndDelete({ $_id: body.id });
+    await notificationsRepository.findOneAndDelete({ $_id: params.id });
 
     return wrapStatus(res, 200, `Done`);
   } catch (err) {

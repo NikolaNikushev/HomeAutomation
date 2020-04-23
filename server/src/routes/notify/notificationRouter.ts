@@ -6,7 +6,7 @@ import deleteNotification from "./deleteNotification";
 const router: Router = express.Router();
 
 router.post("/", notify);
-router.delete("/", deleteNotification);
+router.delete("/:id", deleteNotification);
 router.get("/", loadNotificationsForDevice);
 
 export const NotificationRouter = router;
