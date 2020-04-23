@@ -41,7 +41,7 @@ while True:
                        "didWhat": "Door was opened"
                    }
                }
-        req = urllib2.Request('http://192.168.8.140:3000/notification')
+        req = urllib2.Request('http://192.168.8.140:8000/notification')
         req.add_header('Content-Type', 'application/json')
         notifications = urllib2.urlopen(req, json.dumps(data))
         print notifications
@@ -49,7 +49,7 @@ while True:
         print "Door is Closed!"
         if len(notifications) > 0:
             for x in notifications:
-                response = requests.delete('http://192.168.8.140:3000/notification/' + x)
+                response = requests.delete('http://192.168.8.140:8000/notification/' + x)
                 print response
             print "Cleanup finished"
             print "Sending notification"
