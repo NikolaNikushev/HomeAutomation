@@ -62,7 +62,7 @@ while True:
                            "didWhat": "Door was closed"
                        }
                    }
-            req = urllib2.Request('http://192.168.8.140:3000/notification')
+            req = urllib2.Request('http://192.168.8.140:8000/notification')
             req.add_header('Content-Type', 'application/json')
             response = urllib2.urlopen(req, json.dumps(data))
             notifications = []
