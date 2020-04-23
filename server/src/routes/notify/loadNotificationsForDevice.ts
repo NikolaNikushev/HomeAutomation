@@ -17,14 +17,12 @@ export default async (req: Request, res: Response) => {
       }
     }
     const client = await getMongoClient();
-    const notificationsRepository = new UserNotificationsRepository(client)
+    const userNotificationCollection = new UserNotificationsRepository(client)
       .collection;
-    const notifications = await notificationsRepository
+    const notifications = await userNotificationCollection
       .find({
-        user: {
-          deviceId: input.deviceId as string,
-          deviceName: input.deviceName as string,
-        },
+        "user.deviceName": input.deviceName as string,
+        "user.deviceId": input.deviceId as string,
       })
       .toArray();
     return res.status(200).send(notifications);
