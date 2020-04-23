@@ -47,7 +47,7 @@ while True:
         print notifications
     elif (isOpen != oldIsOpen):
         print "Door is Closed!"
-        if len(notifications > 0):
+        if len(notifications) > 0:
             for x in notifications:
                 response = requests.delete('http://192.168.8.140:3000/notification/' + x)
                 print response
