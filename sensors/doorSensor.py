@@ -43,7 +43,8 @@ while True:
                }
         req = urllib2.Request('http://192.168.8.140:8000/notification')
         req.add_header('Content-Type', 'application/json')
-        notifications = urllib2.urlopen(req, json.dumps(data))
+        response = urllib2.urlopen(req, json.dumps(data))
+        notifications = json.load(response)
         print notifications
     elif (isOpen != oldIsOpen):
         print "Door is Closed!"
