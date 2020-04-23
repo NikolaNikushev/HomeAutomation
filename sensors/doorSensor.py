@@ -17,7 +17,7 @@ DOOR_SENSOR_PIN = 18
 # Initially we don't know if the door sensor is open or closed...
 isOpen = None
 oldIsOpen = None
-notifications = None
+notifications = []
 # Clean up when the user exits with keyboard interrupt
 def cleanupLights(signal, frame):
     GPIO.cleanup()
