@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import wrapStatus from "./wrapStatus";
 import bodyParser from "body-parser";
 import { UserRouter } from "./routes/user/userRouter";
-import { NotifyRouter } from "./routes/notify/notifyRouter";
+import { NotificationRouter } from "./routes/notify/notificationRouter";
 
 const app = express();
 const port = process.env.PORT || "8000";
@@ -14,7 +14,7 @@ app.get("/", (req: Request, res: Response) => {
   return wrapStatus(res, 200, "You made it");
 });
 app.use("/user", UserRouter);
-app.use("/notify", NotifyRouter);
+app.use("/notification", NotificationRouter);
 
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);

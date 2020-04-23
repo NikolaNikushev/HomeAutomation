@@ -5,6 +5,6 @@ import loadNotificationsForDevice from "./loadNotificationsForDevice";
 const router: Router = express.Router();
 
 router.post("/", notify);
-router.get("/notifications", loadNotificationsForDevice);
+router.get("/", loadNotificationsForDevice);
 
-export const NotifyRouter = router;
+export const NotificationRouter = router;

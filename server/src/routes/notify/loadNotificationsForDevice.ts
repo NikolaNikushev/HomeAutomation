@@ -25,7 +25,11 @@ export default async (req: Request, res: Response) => {
         "user.deviceId": input.deviceId as string,
       })
       .toArray();
-    return res.status(200).send(notifications);
+    return res.status(200).send(
+      notifications.map((el) => {
+        return el.notification;
+      })
+    );
   } catch (err) {
     if (err instanceof BadInputError) {
       return wrapStatus(res, 400, err.message);
