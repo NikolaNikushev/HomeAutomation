@@ -3,6 +3,7 @@ import wrapStatus from "../../wrapStatus";
 import { BadInputError } from "../../models/BadInputError";
 import UserNotificationsRepository from "../../database/repository/UserNotificationsRepository";
 import { getMongoClient } from "../../database/getMongoClient";
+import { ObjectId } from "mongodb";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -19,9 +20,10 @@ export default async (req: Request, res: Response) => {
     const client = await getMongoClient();
     const notificationsRepository = new UserNotificationsRepository(client)
       .collection;
-    await notificationsRepository.findOneAndDelete({ $_id: params.id });
-
-    return wrapStatus(res, 200, `Done`);
+    const resp = await notificationsRepository.findOneAndDelete({
+      _id: new ObjectId(params.id),
+    });
+    return wrapStatus(res, 200, resp.value ? "Done" : "Nothing deleted");
   } catch (err) {
     if (err instanceof BadInputError) {
       return wrapStatus(res, 400, err.message);
