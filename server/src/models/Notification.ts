@@ -32,6 +32,7 @@ export class Notification implements NotificationInput {
     instance.title = json.title;
     instance.body = json.body;
     instance.sound = json.sound || "default";
+
     instance.data = NotificationContent.fromJson({
       ...json.data,
       title: json.title,

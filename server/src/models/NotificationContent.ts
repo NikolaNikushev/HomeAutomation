@@ -34,7 +34,7 @@ export class NotificationContent implements NotificationContentInput {
       json.deviceName,
       json.isActive,
       json.didWhat,
-      new Date(json.when),
+      json.when ? new Date(json.when) : new Date(),
       json.title
     );
   }
