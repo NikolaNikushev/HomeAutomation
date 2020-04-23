@@ -38,7 +38,8 @@ while True:
                    "body":"Alert, front door",
                    "data": {
                        "deviceName": "DoorSensor 1",
-                       "didWhat": "Door was opened"
+                       "didWhat": "Door was opened",
+                       "type":"danger"
                    }
                }
         req = urllib2.Request('http://192.168.8.140:8000/notification')
