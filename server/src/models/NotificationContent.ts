@@ -1,6 +1,6 @@
 import { BadInputError } from "./BadInputError";
 
-export type NotificationType = "danger" | "warning" | "happy";
+export type NotificationType = "danger" | "warning" | "success";
 
 export interface NotificationContentInput {
   deviceName: string;
