@@ -3,6 +3,7 @@ import wrapStatus from "../../wrapStatus";
 import { BadInputError } from "../../models/BadInputError";
 import UserNotificationsRepository from "../../database/repository/UserNotificationsRepository";
 import { getMongoClient } from "../../database/getMongoClient";
+import { UserNotification } from "../../models/UserNotification";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -26,8 +27,9 @@ export default async (req: Request, res: Response) => {
       })
       .toArray();
     return res.status(200).send(
-      notifications.map((el) => {
-        return el.notification;
+      notifications.map((el: UserNotification & { _id: string }) => {
+        console.log(el);
+        return { ...el.notification, id: el._id };
       })
     );
   } catch (err) {
