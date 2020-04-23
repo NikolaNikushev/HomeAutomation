@@ -25,7 +25,7 @@ export default async (req: Request, res: Response) => {
       .collection;
     const usersRepository = new UsersRepository(client).collection;
     const usersToNotify = await usersRepository
-      .find({ pushToken: { $exists: true, $not: null } })
+      .find({ pushToken: { $exists: true } })
       .toArray();
     for (const user of usersToNotify) {
       const token = user.pushToken;
