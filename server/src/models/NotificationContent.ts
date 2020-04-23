@@ -1,4 +1,5 @@
 import { BadInputError } from "./BadInputError";
+import { ObjectId } from "mongodb";
 
 export enum NotificationType {
   "danger" = "danger",
@@ -13,6 +14,7 @@ export interface NotificationContentInput {
   when: Date;
   type?: NotificationType;
   title: string;
+  id: ObjectId;
 }
 
 export class NotificationContent implements NotificationContentInput {
@@ -22,6 +24,7 @@ export class NotificationContent implements NotificationContentInput {
   when: Date;
   title: string;
   type: NotificationType;
+  id: ObjectId;
 
   constructor(
     deviceName: string,
@@ -29,7 +32,8 @@ export class NotificationContent implements NotificationContentInput {
     didWhat: string,
     when: Date,
     title: string,
-    type: NotificationType
+    type: NotificationType,
+    id: ObjectId
   ) {
     this.deviceName = deviceName;
     this.isActive = isActive;
@@ -37,6 +41,7 @@ export class NotificationContent implements NotificationContentInput {
     this.when = when;
     this.title = title;
     this.type = type;
+    this.id = id;
   }
 
   static fromJson(json: NotificationContentInput) {
@@ -46,7 +51,8 @@ export class NotificationContent implements NotificationContentInput {
       json.didWhat,
       json.when ? new Date(json.when) : new Date(),
       json.title,
-      json.type
+      json.type,
+      json.id
     );
   }
 

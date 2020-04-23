@@ -30,16 +30,16 @@ export default async (req: Request, res: Response) => {
     const notificationIds = [];
     for (const user of usersToNotify) {
       const token = user.pushToken;
-      await axios.post(
-        "https://exp.host/--/api/v2/push/send",
-        notification.prepare(token)
-      );
 
       const insert = await notificationsRepository.insertOne({
         user,
         notification,
       });
       notificationIds.push(insert.insertedId);
+      await axios.post(
+        "https://exp.host/--/api/v2/push/send",
+        notification.prepare(token, insert.insertedId)
+      );
     }
 
     return res.status(200).send(notificationIds);

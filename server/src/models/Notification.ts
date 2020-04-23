@@ -1,5 +1,6 @@
 import { NotificationContent } from "./NotificationContent";
 import { BadInputError } from "./BadInputError";
+import { ObjectId } from "mongodb";
 
 export interface NotificationInput {
   title: string;
@@ -20,7 +21,8 @@ export class Notification implements NotificationInput {
     this.data = null;
   }
 
-  prepare(to: string) {
+  prepare(to: string, id: ObjectId) {
+    this.data.id = id;
     return {
       to,
       ...this,
