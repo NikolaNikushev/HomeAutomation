@@ -1,12 +1,12 @@
 import { NotificationContent } from "./NotificationContent";
 import { BadInputError } from "./BadInputError";
 
-export type NotificationInput = {
+export interface NotificationInput {
   title: string;
   body?: string;
   sound: string;
   data: NotificationContent;
-};
+}
 
 export class Notification implements NotificationInput {
   title: string;

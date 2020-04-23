@@ -1,12 +1,12 @@
 import { BadInputError } from "./BadInputError";
 
-export type NotificationContentInput = {
+export interface NotificationContentInput {
   deviceName: string;
   isActive?: boolean;
   didWhat: string;
   when: Date;
   title: string;
-};
+}
 
 export class NotificationContent implements NotificationContentInput {
   deviceName: string;
