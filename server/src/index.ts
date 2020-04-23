@@ -1,12 +1,20 @@
 import express from "express";
-import {Request, Response} from "express";
+import { Request, Response } from "express";
+import notify from "./notify";
+import wrapStatus from "./wrapStatus";
+import bodyParser from "body-parser";
+
 const app = express();
 const port = process.env.PORT || "8000";
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.get("/", (req: Request, res: Response) => {
-	res.status(200).send("WHATABYTE: Food For Devs");
+  return wrapStatus(res, 200, "You made it");
 });
+
+app.post("/notify", notify);
 
 app.listen(port, () => {
-	console.log(`Listening to requests on http://localhost:${port}`);
+  console.log(`Listening to requests on http://localhost:${port}`);
 });
-

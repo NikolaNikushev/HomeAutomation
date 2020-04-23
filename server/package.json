@@ -8,7 +8,7 @@
     "lint": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "yarn build",
-    "start": "node .",
+    "start": "node . --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -25,6 +25,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1"
   },
   "husky": {
