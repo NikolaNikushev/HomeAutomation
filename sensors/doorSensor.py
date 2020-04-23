@@ -47,22 +47,24 @@ while True:
         print notifications
     elif (isOpen != oldIsOpen):
         print "Door is Closed!"
-        for x in notifications:
-            response = requests.delete('http://192.168.8.140:3000/notification/' + x)
-            print response
-        print "Cleanup finished"
-        print "Sending notification"
-        data = {
-                   "title": "Door is closed",
-                   "body":"SAFE!",
-                   "data": {
-                       "deviceName": "DoorSensor 1",
-                       "didWhat": "Door was closed"
+        if len(notifications > 0):
+            for x in notifications:
+                response = requests.delete('http://192.168.8.140:3000/notification/' + x)
+                print response
+            print "Cleanup finished"
+            print "Sending notification"
+            data = {
+                       "title": "Door is closed",
+                       "body":"SAFE!",
+                       "data": {
+                           "deviceName": "DoorSensor 1",
+                           "didWhat": "Door was closed"
+                       }
                    }
-               }
-        req = urllib2.Request('http://192.168.8.140:3000/notification')
-        req.add_header('Content-Type', 'application/json')
-        notifications = urllib2.urlopen(req, json.dumps(data))
+            req = urllib2.Request('http://192.168.8.140:3000/notification')
+            req.add_header('Content-Type', 'application/json')
+            response = urllib2.urlopen(req, json.dumps(data))
+            notifications = []
     time.sleep(0.1)
 
 
