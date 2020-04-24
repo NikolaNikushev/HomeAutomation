@@ -1,0 +1,10 @@
+[Unit]
+Description=Server 8000
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=cd /home/pi/Desktop/scripts/server && git pull > /home/pi/Desktop/Logs/git.log 2>&1 && /usr/bin/npm start < /dev/null & > /home/pi/Desktop/Logs/server.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

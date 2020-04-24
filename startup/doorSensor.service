@@ -1,0 +1,15 @@
+[Unit]
+Description=Door sensor
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python /home/pi/Desktop/scripts/sensors/doorSensor.py & > /home/pi/Desktop/Logs/doorSensor.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
+
+
+#cd /home/pi/Desktop/scripts/server
+#git pull > /home/pi/Desktop/Logs/git.log 2>&1
+#npm start < /dev/null & > /home/pi/Desktop/Logs/server.log 2>&1
