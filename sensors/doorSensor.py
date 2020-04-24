@@ -72,7 +72,7 @@ def handleTimerStarted():
     global startTimer
     if(timerStarted == False or len(notifications) > 0):
         return
-    if(time.time() > startTimer + 5):
+    if(time.time() > timeStarted + 5):
        data = {
                  "title": "Door is opened",
                  "body":"Alert, front door",
