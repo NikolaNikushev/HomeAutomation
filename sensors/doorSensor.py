@@ -31,35 +31,45 @@ signal.signal(signal.SIGINT, cleanupLights)
 
 
 def sendNotification(data):
-     print "Sending notification"
-     req = urllib2.Request('http://192.168.8.140:8000/notification')
-     req.add_header('Content-Type', 'application/json')
-     response = urllib2.urlopen(req, json.dumps(data))
-     return response
+    print "Sending notification"
+    req = urllib2.Request('http://192.168.8.140:8000/notification')
+    req.add_header('Content-Type', 'application/json')
+    response = urllib2.urlopen(req, json.dumps(data))
+    return response
 
 def cleanup():
-     timerStarted = False
-     timeStarted = 0
-     if len(notifications) <= 0:
-          return
-     for x in notifications:
-          response = requests.delete('http://192.168.8.140:8000/notification/' + x)
-          print response
-     print "Cleanup finished"
-     data = {
-                "title": "Door is closed",
-                "body":"SAFE!",
-                "data": {
-                    "deviceName": "DoorSensor 1",
-                    "didWhat": "Door was closed"
-                }
-            }
-     response = sendNotification(data)
-     notifications = []
+    global timerStarted
+    global timeStarted
+    global notifications
+    timerStarted = False
+    timeStarted = 0
+    if len(notifications) <= 0:
+         return
+    for x in notifications:
+         response = requests.delete('http://192.168.8.140:8000/notification/' + x)
+         print response
+    print "Cleanup finished"
+    data = {
+               "title": "Door is closed",
+               "body":"SAFE!",
+               "data": {
+                   "deviceName": "DoorSensor 1",
+                   "didWhat": "Door was closed"
+               }
+           }
+    response = sendNotification(data)
+    notifications = []
+
 def startTimer():
+    global timerStarted
+    global timeStarted
     timerStarted = True
     timeStarted = time.time()
+
 def handleTimerStarted():
+    global timerStarted
+    global notifications
+    global startTimer
     if(timerStarted == False or len(notifications) > 0):
         return
     if(time.time() > startTimer + 5):
@@ -77,6 +87,9 @@ def handleTimerStarted():
        print notifications
 
 def run():
+    global isOpen
+    global oldIsOpen
+    global DOOR_SENSOR_PIN
     while True:
          oldIsOpen = isOpen
          isOpen = GPIO.input(DOOR_SENSOR_PIN)
