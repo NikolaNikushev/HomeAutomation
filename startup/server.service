@@ -4,7 +4,9 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=cd /home/pi/Desktop/scripts/server && /usr/bin/git pull > /home/pi/Desktop/Logs/server/git.log 2>&1 && /usr/bin/npm start < /dev/null & > /home/pi/Desktop/Logs/server/boot.log 2>&1
+WorkingDirectory=/home/pi/Desktop/scripts/server
+ExecStartPre=/usr/bin/git pull > /home/pi/Desktop/Logs/server/git.log 2>&1
+ExecStart=/usr/bin/npm start
 Restart=always
 RestartSec=10
 StandardOutput=file:/home/pi/Desktop/Logs/server/output.log
