@@ -1,4 +1,4 @@
-import { BadInputError } from "./BadInputError";
+import { BadInputError } from "../BadInputError";
 import { ObjectId } from "mongodb";
 
 export enum NotificationType {

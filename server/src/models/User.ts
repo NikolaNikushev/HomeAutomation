@@ -1,4 +1,4 @@
-import { BadInputError } from "./BadInputError";
+import { BadInputError } from "../BadInputError";
 
 export interface UserInput {
   deviceName: string;

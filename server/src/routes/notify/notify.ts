@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Notification } from "../../models/Notification";
 import wrapStatus from "../../wrapStatus";
 import axios from "axios";
-import { BadInputError } from "../../models/BadInputError";
+import { BadInputError } from "../../BadInputError";
 import UserNotificationsRepository from "../../database/repository/UserNotificationsRepository";
 import { getMongoClient } from "../../database/getMongoClient";
 import UsersRepository from "../../database/repository/UsersRepository";

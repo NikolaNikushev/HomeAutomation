@@ -1,5 +1,5 @@
 import { NotificationContent } from "./NotificationContent";
-import { BadInputError } from "./BadInputError";
+import { BadInputError } from "../BadInputError";
 import { ObjectId } from "mongodb";
 
 export interface NotificationInput {

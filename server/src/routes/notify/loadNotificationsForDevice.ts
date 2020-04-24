@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import wrapStatus from "../../wrapStatus";
-import { BadInputError } from "../../models/BadInputError";
+import { BadInputError } from "../../BadInputError";
 import UserNotificationsRepository from "../../database/repository/UserNotificationsRepository";
 import { getMongoClient } from "../../database/getMongoClient";
 import { UserNotification } from "../../models/UserNotification";
