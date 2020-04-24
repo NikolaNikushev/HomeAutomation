@@ -4,7 +4,11 @@ After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python /home/pi/Desktop/scripts/sensors/doorSensor.py & > /home/pi/Desktop/Logs/doorSensor.log 2>&1
-
+ExecStart=/usr/bin/python /home/pi/Desktop/scripts/sensors/doorSensor.py & > /home/pi/Desktop/Logs/door-sensor/boot.log 2>&1
+Restart=always
+RestartSec=10
+StandardOutput=file:/home/pi/Desktop/Logs/door-sensor/output.log
+StandardError=file:/home/pi/Desktop/Logs/door-sensor/error.log
+SyslogIdentifier=door-sensor
 [Install]
 WantedBy=multi-user.target
