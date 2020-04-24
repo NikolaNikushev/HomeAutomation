@@ -29,17 +29,6 @@ GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # Set the cleanup handler for when user hits Ctrl-C to exit
 signal.signal(signal.SIGINT, cleanupLights)
 
-while True:
-     oldIsOpen = isOpen
-     isOpen = GPIO.input(DOOR_SENSOR_PIN)
-     handleTimerStarted()
-     if (isOpen and (isOpen != oldIsOpen)):
-          print "Door is Open!"
-          startTimer()
-     elif (isOpen != oldIsOpen):
-          print "Door is Closed!"
-          cleanup()
-     time.sleep(0.1)
 
 def sendNotification(data):
      print "Sending notification"
@@ -86,3 +75,17 @@ def handleTimerStarted():
        response = sendNotification(data)
        notifications = json.load(response)
        print notifications
+
+def run():
+    while True:
+         oldIsOpen = isOpen
+         isOpen = GPIO.input(DOOR_SENSOR_PIN)
+         handleTimerStarted()
+         if (isOpen and (isOpen != oldIsOpen)):
+              print "Door is Open!"
+              startTimer()
+         elif (isOpen != oldIsOpen):
+              print "Door is Closed!"
+              cleanup()
+         time.sleep(0.1)
+run()
