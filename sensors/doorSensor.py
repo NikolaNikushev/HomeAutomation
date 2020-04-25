@@ -52,7 +52,7 @@ def reportStatus():
     req = urllib2.Request('http://192.168.8.140:8000/device/update')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
-    print "Pinged status", data.status
+    print "Pinged status", response.status
     return response
 def sendNotification(data):
     print "Sending notification"
