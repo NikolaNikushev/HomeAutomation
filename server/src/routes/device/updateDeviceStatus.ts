@@ -13,8 +13,8 @@ export default async (req: Request, res: Response) => {
     device.validate();
     const updatedDevice = await deviceCollection.findOneAndUpdate(
       {
-        name: { $eq: device.name },
-        "room.name": device.room.name,
+        name: device.name,
+        room: device.room,
       },
       device
     );
