@@ -34,7 +34,7 @@ def retry_if_io_error(exception):
     #Return True if we should retry (in this case when it's an IOError), False otherwise
     return isinstance(exception, IOError)
 
-@retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=60000, retry_on_exception=retry_if_io_error)
+@retry(wait_fixed=10000, retry_on_exception=retry_if_io_error)
 def register():
     print "Registering device."
     data = {
