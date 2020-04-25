@@ -57,7 +57,7 @@ def reportStatus():
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
     loaded = json.load(response)
-    print "Pinged status",  loaded.status
+    print "Pinged status",  loaded.get('status')
     return  loaded
 def sendNotification(data):
     print "Sending notification"
