@@ -32,6 +32,7 @@ signal.signal(signal.SIGINT, cleanupLights)
 
 @retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=60000)
 def register():
+    print "Registering device."
     data = {
                "name": "Front Door Sensor",
                "room":"Lobby"
