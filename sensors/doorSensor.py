@@ -40,6 +40,8 @@ def register():
     req = urllib2.Request('http://192.168.8.140:8000/device')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
+    print "Registered"
+    print response
     return response
 def reportStatus():
     data = {
