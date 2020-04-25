@@ -41,8 +41,8 @@ def register():
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
     print "Registered"
-    print response
-    return response
+    print  json.load(response)
+    return  json.load(response)
 def reportStatus():
     data = {
                "name": "Front Door Sensor",
@@ -52,14 +52,14 @@ def reportStatus():
     req = urllib2.Request('http://192.168.8.140:8000/device/update')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
-    print "Pinged status", response.status
-    return response
+    print "Pinged status",  json.load(response).status
+    return  json.load(response)
 def sendNotification(data):
     print "Sending notification"
     req = urllib2.Request('http://192.168.8.140:8000/notification')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
-    return response
+    return json.load(response)
 
 def cleanup():
     global timerStarted
