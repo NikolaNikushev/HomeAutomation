@@ -16,7 +16,7 @@ export default async (req: Request, res: Response) => {
       room: device.room,
     });
     if (foundDevice) {
-      return foundDevice;
+      return res.status(200).send(foundDevice);
     }
     await deviceCollection.insertOne(device);
     const newDevice = await deviceCollection.findOne(device);
