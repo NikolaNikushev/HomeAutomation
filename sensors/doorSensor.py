@@ -29,6 +29,7 @@ GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # Set the cleanup handler for when user hits Ctrl-C to exit
 signal.signal(signal.SIGINT, cleanupLights)
 def register():
+    time.sleep(60)
     data = {
                "name": "Front Door Sensor",
                "room":"Lobby"
