@@ -28,8 +28,25 @@ def cleanupLights(signal, frame):
 GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # Set the cleanup handler for when user hits Ctrl-C to exit
 signal.signal(signal.SIGINT, cleanupLights)
-
-
+def register():
+    data = {
+               "name": "Front Door Sensor",
+               "room":"Lobby"
+           }
+    req = urllib2.Request('http://192.168.8.140:8000/device')
+    req.add_header('Content-Type', 'application/json')
+    response = urllib2.urlopen(req, json.dumps(data))
+    return response
+def reportStatus():
+    data = {
+               "name": "Front Door Sensor",
+               "room":"Lobby",
+               "status": "active"
+           }
+    req = urllib2.Request('http://192.168.8.140:8000/device/update')
+    req.add_header('Content-Type', 'application/json')
+    response = urllib2.urlopen(req, json.dumps(data))
+    return response
 def sendNotification(data):
     print "Sending notification"
     req = urllib2.Request('http://192.168.8.140:8000/notification')
@@ -88,9 +105,11 @@ def handleTimerStarted():
        print notifications
 
 def run():
+    register()
     global isOpen
     global oldIsOpen
     global DOOR_SENSOR_PIN
+    lastStatusReport = time.time()
     while True:
          oldIsOpen = isOpen
          isOpen = GPIO.input(DOOR_SENSOR_PIN)
@@ -101,5 +120,9 @@ def run():
          elif (isOpen != oldIsOpen):
               print "Door is Closed!"
               cleanup()
+         now = time.time()
+         if(now > lastStatusReport + 30 ):  # every 30 seconds + 0.1 miliseconds wait per loop
+              reportStatus()
+              lastStatusReport = now
          time.sleep(0.1)
 run()

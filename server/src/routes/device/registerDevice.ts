@@ -16,7 +16,7 @@ export default async (req: Request, res: Response) => {
       "room.name": device.room.name,
     });
     if (foundDevice) {
-      throw new BadInputError("Device credentials already taken");
+      return foundDevice;
     }
     await deviceCollection.insertOne(device);
     const newDevice = await deviceCollection.findOne(device);
