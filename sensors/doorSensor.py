@@ -30,7 +30,11 @@ GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # Set the cleanup handler for when user hits Ctrl-C to exit
 signal.signal(signal.SIGINT, cleanupLights)
 
-@retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=60000)
+def retry_if_io_error(exception):
+    #Return True if we should retry (in this case when it's an IOError), False otherwise
+    return isinstance(exception, IOError)
+
+@retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=60000, retry_on_exception=retry_if_io_error)
 def register():
     print "Registering device."
     data = {
