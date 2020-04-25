@@ -18,6 +18,9 @@ export class User implements UserInput {
   }
 
   static fromJson(json: UserInput) {
+    if (!json) {
+      throw new BadInputError("No UserInput provided");
+    }
     return new User(json.deviceName, json.deviceId, json.pushToken);
   }
 

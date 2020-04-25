@@ -45,6 +45,9 @@ export class NotificationContent implements NotificationContentInput {
   }
 
   static fromJson(json: NotificationContentInput) {
+    if (!json) {
+      throw new BadInputError("No NotificationContentInput provided");
+    }
     return new NotificationContent(
       json.deviceName,
       json.isActive,

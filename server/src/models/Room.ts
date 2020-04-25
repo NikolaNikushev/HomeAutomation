@@ -8,6 +8,9 @@ export class Room implements RoomInput {
   name: string;
 
   static fromJson(json: RoomInput) {
+    if (!json) {
+      throw new BadInputError("No RoomInput provided");
+    }
     const instance = new Room();
     instance.name = json.name;
     return instance;

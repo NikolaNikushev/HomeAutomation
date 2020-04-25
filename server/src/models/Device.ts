@@ -25,6 +25,9 @@ export class Device implements DeviceInput {
   }
 
   static fromJson(json: DeviceInput) {
+    if (!json) {
+      throw new BadInputError("No DeviceInput provided");
+    }
     const instance = new Device();
     instance.name = json.name;
     instance.room = Room.fromJson(json.room);
@@ -38,6 +41,9 @@ export class Device implements DeviceInput {
     }
     if (this.status && !(this.status in DeviceStatus)) {
       throw new BadInputError("Invalid status provided.");
+    }
+    if (!this.room) {
+      throw new BadInputError("No room provided.");
     }
     this.room.validate();
   }

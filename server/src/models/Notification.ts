@@ -30,6 +30,9 @@ export class Notification implements NotificationInput {
   }
 
   static fromJson(json: NotificationInput) {
+    if (!json) {
+      throw new BadInputError("No NotificationInput provided");
+    }
     const instance = new Notification();
     instance.title = json.title;
     instance.body = json.body;
