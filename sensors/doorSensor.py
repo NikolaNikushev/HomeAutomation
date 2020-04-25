@@ -118,6 +118,7 @@ def handleTimerStarted():
 
 def run():
     register()
+    reportStatus()
     global isOpen
     global oldIsOpen
     global DOOR_SENSOR_PIN
