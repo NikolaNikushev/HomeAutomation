@@ -6,6 +6,7 @@ import signal
 import json
 import urllib2
 import requests
+from retrying import retry
 
 # Set Broadcom mode so we can address GPIO pins by number.
 GPIO.setmode(GPIO.BCM)
@@ -28,8 +29,9 @@ def cleanupLights(signal, frame):
 GPIO.setup(DOOR_SENSOR_PIN, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 # Set the cleanup handler for when user hits Ctrl-C to exit
 signal.signal(signal.SIGINT, cleanupLights)
+
+@retry(wait_exponential_multiplier=5000, wait_exponential_max=10000, stop_max_delay=60000)
 def register():
-    time.sleep(60)
     data = {
                "name": "Front Door Sensor",
                "room":"Lobby"
