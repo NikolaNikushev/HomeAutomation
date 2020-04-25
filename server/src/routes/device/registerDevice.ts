@@ -12,8 +12,8 @@ export default async (req: Request, res: Response) => {
     const device = Device.fromJson(req.body);
     device.validate();
     const foundDevice = await deviceCollection.findOne({
-      name: { $eq: device.name },
-      "room.name": device.room.name,
+      name: device.name,
+      room: device.room,
     });
     if (foundDevice) {
       return foundDevice;
