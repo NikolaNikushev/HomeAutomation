@@ -24,7 +24,7 @@ export default async (req: Request, res: Response) => {
     return res.status(200).send(newDevice);
   } catch (err) {
     if (err instanceof BadInputError) {
-      return wrapStatus(res, 200, err.message);
+      return wrapStatus(res, 400, err.message);
     }
     console.log(err);
     return wrapStatus(res, 500, err.message);

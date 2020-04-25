@@ -35,7 +35,7 @@ def register():
     print "Registering device."
     data = {
                "name": "Front Door Sensor",
-               "room":"Lobby"
+               "room":{"name":"Lobby"},
            }
     req = urllib2.Request('http://192.168.8.140:8000/device')
     req.add_header('Content-Type', 'application/json')
@@ -46,7 +46,7 @@ def register():
 def reportStatus():
     data = {
                "name": "Front Door Sensor",
-               "room":"Lobby",
+               "room":{"name":"Lobby"},
                "status": "active"
            }
     req = urllib2.Request('http://192.168.8.140:8000/device/update')
