@@ -113,7 +113,8 @@ def handleTimerStarted():
                  }
             }
        response = sendNotification(data)
-       notifications = json.load(response)
+       loaded = json.load(response)
+       notifications.append(loaded)
        print notifications
 
 def run():
