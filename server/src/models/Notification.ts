@@ -6,6 +6,7 @@ export interface NotificationInput {
   title: string;
   body?: string;
   sound: string;
+  badge: number;
   data: NotificationContent;
 }
 
@@ -14,6 +15,7 @@ export class Notification implements NotificationInput {
   body?: string;
   sound: string;
   data: NotificationContent;
+  badge = 1;
   _displayInForeground = false;
 
   constructor() {
