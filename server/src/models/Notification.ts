@@ -15,7 +15,7 @@ export class Notification implements NotificationInput {
   body?: string;
   sound: string;
   data: NotificationContent;
-  badge = 1;
+  badge = 0;
   _displayInForeground = false;
 
   constructor() {
@@ -24,10 +24,10 @@ export class Notification implements NotificationInput {
   }
 
   prepare(to: string, id: ObjectId) {
-    this.data.id = id;
     return {
       to,
       ...this,
+      data: { ...this.data, id },
     };
   }
 
