@@ -15,6 +15,10 @@ export const getMongoClient = async (): Promise<MongoClient> => {
   client = await connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    // sets how many times to try reconnecting
+    reconnectTries: Number.MAX_VALUE,
+    // sets the delay between every retry (milliseconds)
+    reconnectInterval: 1000,
   });
   return client;
 };
