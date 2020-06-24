@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import sys
 import signal
+import socket
 
 import json
 import urllib2
@@ -34,6 +35,11 @@ def retry_if_io_error(exception):
     #Return True if we should retry (in this case when it's an IOError), False otherwise
     return isinstance(exception, IOError)
 
+## getting the IP address using socket.gethostbyname() method
+hostname = socket.gethostname()
+serverIp = socket.gethostbyname(hostname)
+serverAddress = 'http://' + serverIp + ':8000'
+print ("Contacting to " + serverAddress)
 @retry(wait_fixed=10000, retry_on_exception=retry_if_io_error)
 def register():
     print "Registering device."
@@ -41,7 +47,7 @@ def register():
                "name": "Front Door Sensor",
                "room":{"name":"Lobby"},
            }
-    req = urllib2.Request('http://192.168.8.140:8000/device')
+    req = urllib2.Request(serverAddress + '/device')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
     print "Registered"
@@ -53,7 +59,7 @@ def reportStatus():
                "room":{"name":"Lobby"},
                "status": "active"
            }
-    req = urllib2.Request('http://192.168.8.140:8000/device/update')
+    req = urllib2.Request(serverAddress + '/device/update')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
     loaded = json.load(response)
@@ -61,7 +67,7 @@ def reportStatus():
     return  loaded
 def sendNotification(data):
     print "Sending notification"
-    req = urllib2.Request('http://192.168.8.140:8000/notification')
+    req = urllib2.Request(serverAddress + '/notification')
     req.add_header('Content-Type', 'application/json')
     response = urllib2.urlopen(req, json.dumps(data))
     return json.load(response)
@@ -74,8 +80,8 @@ def cleanup():
     timeStarted = 0
     if len(notifications) <= 0:
          return
-    for x in notifications:
-         response = requests.delete('http://192.168.8.140:8000/notification/' + x)
+    for notification in notifications:
+         response = requests.delete(serverAddress + '/notification/' + notification)
          print response
     print "Cleanup finished"
     data = {
