@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "HomeAutomation-App",
+    "slug": "HomeAutomation-App",
+    "scheme": "homeautomation-app",
+    "privacy": "unlisted",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nikolanikushev.homeautomation",
+      "buildNumber": "1.1.0"
+    },
+    "android": {
+      "package": "com.nikolanikushev.homeautomation",
+      "versionCode": 0
+    },
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "js",
+        "json",
+        "ts",
+        "tsx",
+        "vue"
+      ]
+    },
+    "description": ""
+  }
+}

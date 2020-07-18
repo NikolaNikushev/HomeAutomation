@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "diagnostics": true,
+    "inlineSources": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    // this aligns with Vue's browser support
+    "target": "es5",
+    // this enables stricter inference for data properties on `this`
+    // if using webpack 2+ or rollup, to leverage tree shaking:
+    "module": "es6",
+    // typeRoots option has been previously configured
+    "typeRoots": [
+      // add path to @types
+      "node_modules/@types"
+    ],
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native",
+    "lib": ["dom", "esnext"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "types": ["node", "react", "react-dom", "react-native"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": ["node_modules", "tests"]
+}
